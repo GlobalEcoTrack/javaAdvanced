@@ -14,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tb_state")
+@Table(name = "eco_track_tb_state")
 public class State {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +23,7 @@ public class State {
     private String name;
     @Column(unique = true)
     private String abbreviation;
+    private Double price_kwh;
 
     @OneToMany(mappedBy = "state")
     private List<User> users;
@@ -31,5 +32,6 @@ public class State {
         this.id = stateDTO.getId();
         this.name = stateDTO.getName();
         this.abbreviation = stateDTO.getAbbreviation();
+        this.price_kwh = stateDTO.getPrice_kwh();
     }
 }

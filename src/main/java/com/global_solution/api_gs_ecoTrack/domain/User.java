@@ -13,13 +13,14 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.time.LocalDate;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tb_user")
+@Table(name = "eco_track_tb_user")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +36,13 @@ public class User implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private UserRole role;
+
+//    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
+    @JoinTable(name = "eco_track_tb_user_appliance",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "appliance_id"))
+    private Set<Appliance> appliances;
 
     public User(UserDTO userDTO) {
         this.id = userDTO.getId();
