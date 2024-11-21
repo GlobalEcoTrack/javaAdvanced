@@ -39,11 +39,11 @@ public class UserApplianceService {
         return new UserApplianceDTO(userAppliance);
     }
 
-    @Transactional(readOnly = true)
-    public List<ReportDTO> report() {
-        List<UserAppliance> userAppliances = userApplianceRepository.findByUserId(userService.getUserContext().getId());
-
-    }
+//    @Transactional(readOnly = true)
+//    public List<ReportDTO> report() {
+//        List<UserAppliance> userAppliances = userApplianceRepository.findByUserId(userService.getUserContext().getId());
+//
+//    }
 
 
     @Transactional(readOnly = true)
