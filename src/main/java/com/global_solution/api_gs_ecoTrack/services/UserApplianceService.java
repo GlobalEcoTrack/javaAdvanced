@@ -2,7 +2,9 @@ package com.global_solution.api_gs_ecoTrack.services;
 
 import com.global_solution.api_gs_ecoTrack.domain.Appliance;
 import com.global_solution.api_gs_ecoTrack.domain.UserAppliance;
+import com.global_solution.api_gs_ecoTrack.domain.dto.ReportDTO;
 import com.global_solution.api_gs_ecoTrack.domain.dto.UserApplianceDTO;
+import com.global_solution.api_gs_ecoTrack.domain.projections.UserAppliancesByMonthYearReportProjection;
 import com.global_solution.api_gs_ecoTrack.repositories.UserApplianceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +34,11 @@ public class UserApplianceService {
 
         userAppliance.setAssociationDate(LocalDateTime.now());
 
+        Double totalConsumption = (userAppliance.getMinutesUsedPerDay() / 60) * (userAppliance.getDaysUsedPerWeek() * 4) * userAppliance.getAppliance().getKw();
+        Double totalCost = totalConsumption * userAppliance.getUser().getState().getPrice_kwh();
 
+        userAppliance.setTotalConsumption(totalConsumption);
+        userAppliance.setTotalCost(totalCost);
         userAppliance = userApplianceRepository.save(userAppliance);
         return new UserApplianceDTO(userAppliance);
     }
@@ -48,4 +54,19 @@ public class UserApplianceService {
         return new UserApplianceDTO(userAppliance);
     }
 
+    @Transactional(readOnly = true)
+    public ReportDTO getUserAppliancesReport() {
+        ReportDTO reportDTO = new ReportDTO();
+        reportDTO.setReportUserApplianceList(userApplianceRepository.getAppliancesReport(userService.getUserContext().getId()));
+        reportDTO.getReportUserApplianceList().forEach(userAppliance -> {
+            reportDTO.setTotalConsumption(reportDTO.getTotalConsumption()  + userAppliance.getTotalConsumption());
+            reportDTO.setTotalCost(reportDTO.getTotalCost() + userAppliance.getTotalCost());
+        });
+        return reportDTO;
+    }
+
+    @Transactional(readOnly = true)
+    public List<UserAppliancesByMonthYearReportProjection> getUserAppliancesReportByMonthYear() {
+        return this.userApplianceRepository.getMonthYearReport(userService.getUserContext().getId());
+    }
 }

@@ -1,6 +1,8 @@
 package com.global_solution.api_gs_ecoTrack.controllers;
 
+import com.global_solution.api_gs_ecoTrack.domain.dto.ReportDTO;
 import com.global_solution.api_gs_ecoTrack.domain.dto.UserApplianceDTO;
+import com.global_solution.api_gs_ecoTrack.domain.projections.UserAppliancesByMonthYearReportProjection;
 import com.global_solution.api_gs_ecoTrack.services.UserApplianceService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,16 @@ public class UserApplianceController {
     @GetMapping("/{id}")
     public ResponseEntity<UserApplianceDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok(userApplianceService.findById(id));
+    }
+
+    @GetMapping("/report")
+    public ResponseEntity<ReportDTO> getUserAppliancesReport() {
+        return ResponseEntity.ok(userApplianceService.getUserAppliancesReport());
+    }
+
+    @GetMapping("/report/monthYear")
+    public ResponseEntity<List<UserAppliancesByMonthYearReportProjection>> getMonthYearReport() {
+        return ResponseEntity.ok(userApplianceService.getUserAppliancesReportByMonthYear());
     }
 
 }

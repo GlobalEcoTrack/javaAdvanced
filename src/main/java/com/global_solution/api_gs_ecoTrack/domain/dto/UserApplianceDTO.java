@@ -1,10 +1,6 @@
 package com.global_solution.api_gs_ecoTrack.domain.dto;
 
-import com.global_solution.api_gs_ecoTrack.domain.Appliance;
-import com.global_solution.api_gs_ecoTrack.domain.User;
 import com.global_solution.api_gs_ecoTrack.domain.UserAppliance;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,10 +20,10 @@ public class UserApplianceDTO {
     private Long appliance_id;
     private LocalDateTime associationDate;
     @NotNull(message = "Horas de uso por dia é obrigatório")
-    private Double hoursUsedPerDay;
+    private Double minutesUsedPerDay;
     @NotNull(message = "Dias de uso por semana é obrigatório")
     private Integer daysUsedPerWeek;
-    private Double totalComsumption;
+    private Double totalConsumption;
     private Double totalCost;
 
     public UserApplianceDTO(UserAppliance userAppliance) {
@@ -35,9 +31,9 @@ public class UserApplianceDTO {
         this.user_id = userAppliance.getUser().getId();
         this.appliance_id = userAppliance.getAppliance().getId();
         this.associationDate = userAppliance.getAssociationDate();
-        this.hoursUsedPerDay = userAppliance.getHoursUsedPerDay();
+        this.minutesUsedPerDay = userAppliance.getMinutesUsedPerDay();
         this.daysUsedPerWeek = userAppliance.getDaysUsedPerWeek();
-        this.totalComsumption = userAppliance.getTotalComsumption();
+        this.totalConsumption = userAppliance.getTotalConsumption();
         this.totalCost = userAppliance.getTotalCost();
     }
 }

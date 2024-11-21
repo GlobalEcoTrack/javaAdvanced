@@ -31,6 +31,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/signup").permitAll()
                         .requestMatchers(HttpMethod.GET, "/state").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/report").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
                         .anyRequest().authenticated() // Todas as outras requisições precisam de autenticação
                 )

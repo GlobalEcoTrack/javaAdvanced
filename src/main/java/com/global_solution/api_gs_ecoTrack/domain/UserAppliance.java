@@ -31,20 +31,20 @@ public class UserAppliance {
 
     private LocalDateTime associationDate;
 
-    private Double hoursUsedPerDay;
+    private Double minutesUsedPerDay;
 
     private Integer daysUsedPerWeek;
 
-    private Double totalComsumption;
+    private Double totalConsumption;
 
     private Double totalCost;
 
     public UserAppliance(UserApplianceDTO userApplianceDTO) {
         this.id = userApplianceDTO.getId();
         this.associationDate = userApplianceDTO.getAssociationDate();
-        this.hoursUsedPerDay = userApplianceDTO.getHoursUsedPerDay();
+        this.minutesUsedPerDay = userApplianceDTO.getMinutesUsedPerDay();
         this.daysUsedPerWeek = userApplianceDTO.getDaysUsedPerWeek();
-        this.totalComsumption = userApplianceDTO.getTotalComsumption();
+        this.totalConsumption = userApplianceDTO.getTotalConsumption();
         this.totalCost = userApplianceDTO.getTotalCost();
     }
 }
