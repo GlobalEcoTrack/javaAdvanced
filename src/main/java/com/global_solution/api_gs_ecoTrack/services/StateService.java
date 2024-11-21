@@ -4,6 +4,8 @@ import com.global_solution.api_gs_ecoTrack.domain.State;
 import com.global_solution.api_gs_ecoTrack.domain.dto.StateDTO;
 import com.global_solution.api_gs_ecoTrack.repositories.StateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +34,12 @@ public class StateService {
     @Transactional(readOnly = true)
     public List<StateDTO> findAll() {
         return stateRepository.findAll().stream().map(StateDTO::new).toList();
+    }
+
+    @Transactional(readOnly = true)
+    public Page<StateDTO> findAllPageable(Pageable pageable) {
+        return stateRepository.findAll(pageable)
+                .map(StateDTO::new);
     }
 
     @Transactional
