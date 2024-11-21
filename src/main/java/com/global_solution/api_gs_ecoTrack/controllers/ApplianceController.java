@@ -1,8 +1,6 @@
 package com.global_solution.api_gs_ecoTrack.controllers;
 
 import com.global_solution.api_gs_ecoTrack.domain.dto.ApplianceDTO;
-import com.global_solution.api_gs_ecoTrack.domain.dto.RegisterReponseDTO;
-import com.global_solution.api_gs_ecoTrack.domain.dto.StateDTO;
 import com.global_solution.api_gs_ecoTrack.services.ApplianceService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

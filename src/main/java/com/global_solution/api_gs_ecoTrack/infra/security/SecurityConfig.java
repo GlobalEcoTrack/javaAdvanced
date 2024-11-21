@@ -30,7 +30,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/signup").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/auth/forgotPassword").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/state").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
                         .anyRequest().authenticated() // Todas as outras requisições precisam de autenticação
                 )

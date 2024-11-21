@@ -4,6 +4,7 @@ import com.global_solution.api_gs_ecoTrack.domain.User;
 import com.global_solution.api_gs_ecoTrack.domain.dto.UserDTO;
 import com.global_solution.api_gs_ecoTrack.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,6 +25,15 @@ public class UserService {
     @Transactional(readOnly = true)
     public UserDTO findById(Long id) {
         return new UserDTO(userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Conta não encontrada !!")));
+    }
+
+    @Transactional(readOnly = true)
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException("Conta não encontrada !!"));
+    }
+
+    public User getUserContext() {
+        return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
 }

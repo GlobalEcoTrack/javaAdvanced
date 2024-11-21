@@ -37,12 +37,8 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-//    @ManyToMany(fetch = FetchType.EAGER)
-    @ManyToMany
-    @JoinTable(name = "eco_track_tb_user_appliance",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "appliance_id"))
-    private Set<Appliance> appliances;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<UserAppliance> userAppliances;
 
     public User(UserDTO userDTO) {
         this.id = userDTO.getId();

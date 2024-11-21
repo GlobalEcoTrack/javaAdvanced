@@ -29,7 +29,7 @@ public class ApplianceService {
 
     @Transactional(readOnly = true)
     public ApplianceDTO findById(Long id) {
-        Appliance appliance = applianceRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Appliance not found"));
+        Appliance appliance = applianceRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Appliance não encontrado !!"));
         return new ApplianceDTO(appliance);
     }
 }

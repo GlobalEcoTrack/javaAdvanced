@@ -17,11 +17,11 @@ public class ApplianceDTO {
     @NotBlank(message = "Nome do eletrodoméstico é obrigatório")
     private String name;
     @NotNull(message = "Consumo de energia por hora é obrigatório")
-    private Double kwh;
+    private Double kwPerHour;
 
     public ApplianceDTO(Appliance appliance) {
         this.id = appliance.getId();
         this.name = appliance.getName();
-        this.kwh = appliance.getKwh();
+        this.kwPerHour = appliance.getKwPerHour();
     }
 }
