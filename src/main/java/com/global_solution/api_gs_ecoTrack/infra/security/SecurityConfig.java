@@ -33,12 +33,19 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/state").permitAll()
                         .requestMatchers(HttpMethod.GET, "/report").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()
-                        .anyRequest().authenticated() // Todas as outras requisições precisam de autenticação
+                        .requestMatchers(
+                                "/swagger-ui/**",
+                                "/v3/api-docs/**",
+                                "/swagger-ui.html",
+                                "/api/docs/**"
+                        ).permitAll()
+                        .anyRequest().authenticated()
                 )
-                .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable)) // H2 Console
+                .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable))
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
+
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
