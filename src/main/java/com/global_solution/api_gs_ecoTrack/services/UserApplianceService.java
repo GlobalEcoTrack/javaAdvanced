@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class UserApplianceService {
@@ -50,7 +51,7 @@ public class UserApplianceService {
 
     @Transactional(readOnly = true)
     public UserApplianceDTO findById(Long id) {
-        UserAppliance userAppliance = userApplianceRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("UserAppliance not found"));
+        UserAppliance userAppliance = userApplianceRepository.findById(id).orElseThrow(() -> new NoSuchElementException("UserAppliance not found"));
         return new UserApplianceDTO(userAppliance);
     }
 
@@ -69,4 +70,11 @@ public class UserApplianceService {
     public List<UserAppliancesByMonthYearReportProjection> getUserAppliancesReportByMonthYear() {
         return this.userApplianceRepository.getMonthYearReport(userService.getUserContext().getId());
     }
+
+    @Transactional
+    public void delete(Long id) {
+        UserApplianceDTO userApplianceDTO = findById(id);
+        userApplianceRepository.deleteById(userApplianceDTO.getId());
+    }
+
 }

@@ -32,4 +32,19 @@ public class ApplianceService {
         Appliance appliance = applianceRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("Appliance não encontrado !!"));
         return new ApplianceDTO(appliance);
     }
+
+    @Transactional
+    public void delete(Long id) {
+        ApplianceDTO applianceDTO = findById(id);
+        applianceRepository.deleteById(applianceDTO.getId());
+    }
+
+    @Transactional
+    public ApplianceDTO update(Long id, ApplianceDTO applianceDTO) {
+        Appliance appliance = new Appliance(findById(id));
+        appliance.setName(applianceDTO.getName());
+        appliance.setKw(applianceDTO.getKw());
+        appliance = applianceRepository.save(appliance);
+        return new ApplianceDTO(appliance);
+    }
 }

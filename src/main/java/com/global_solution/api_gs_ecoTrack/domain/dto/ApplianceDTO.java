@@ -7,12 +7,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.hateoas.RepresentationModel;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ApplianceDTO {
+public class ApplianceDTO extends RepresentationModel<ApplianceDTO> {
     private Long id;
     @NotBlank(message = "Nome do eletrodoméstico é obrigatório")
     private String name;

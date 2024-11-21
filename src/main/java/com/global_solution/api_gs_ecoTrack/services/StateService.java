@@ -33,4 +33,26 @@ public class StateService {
     public List<StateDTO> findAll() {
         return stateRepository.findAll().stream().map(StateDTO::new).toList();
     }
+
+    @Transactional
+    public void deleteById(Long id) {
+        StateDTO stateDTO = findById(id);
+        stateRepository.deleteById(stateDTO.getId());
+    }
+
+    @Transactional(readOnly = true)
+    public StateDTO findById(Long id) {
+        State state = stateRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Estado não encontrado"));
+        return new StateDTO(state);
+    }
+
+    @Transactional
+    public StateDTO update(Long id, StateDTO stateDTO) {
+        State state = stateRepository.findById(id).orElseThrow(() -> new NoSuchElementException("Estado não encontrado"));
+        state.setAbbreviation(stateDTO.getAbbreviation());
+        state.setName(stateDTO.getName());
+        state.setPrice_kwh(stateDTO.getPrice_kwh());
+        state = stateRepository.save(state);
+        return new StateDTO(state);
+    }
 }

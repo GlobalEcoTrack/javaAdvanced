@@ -4,11 +4,12 @@ import com.global_solution.api_gs_ecoTrack.domain.dto.StateDTO;
 import com.global_solution.api_gs_ecoTrack.services.StateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("/state")
@@ -19,7 +20,50 @@ public class StateController {
 
     @GetMapping
     public ResponseEntity<List<StateDTO>> findAll() {
-        return ResponseEntity.ok(stateService.findAll());
+        List<StateDTO> states = stateService.findAll();
+        states.forEach(state -> {
+            state.add(linkTo(methodOn(StateController.class).findById(state.getId())).withRel("Find by id"));
+            state.add(linkTo(methodOn(StateController.class).deleteById(state.getId())).withRel("Delete by id"));
+            state.add(linkTo(methodOn(StateController.class).update(state.getId(), state)).withRel("Update by id"));
+            state.add(linkTo(methodOn(StateController.class).insert(state)).withRel("Insert"));
+        });
+        return ResponseEntity.ok(states);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
+        stateService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<StateDTO> findById(@PathVariable Long id) {
+        StateDTO stateDTO = stateService.findById(id);
+        stateDTO.add(linkTo(methodOn(StateController.class).deleteById(stateDTO.getId())).withRel("Delete by id"));
+        stateDTO.add(linkTo(methodOn(StateController.class).update(stateDTO.getId(), stateDTO)).withRel("Update by id"));
+        stateDTO.add(linkTo(methodOn(StateController.class).findAll()).withRel("List of states"));
+        stateDTO.add(linkTo(methodOn(StateController.class).insert(stateDTO)).withRel("Insert"));
+        return ResponseEntity.ok(stateDTO);
+    }
+
+    @PostMapping
+    public ResponseEntity<StateDTO> insert(@RequestBody StateDTO stateDTO) {
+        StateDTO state = this.stateService.insert(stateDTO);
+        state.add(linkTo(methodOn(StateController.class).findById(state.getId())).withRel("Find by id"));
+        state.add(linkTo(methodOn(StateController.class).findAll()).withRel("List of states"));
+        state.add(linkTo(methodOn(StateController.class).deleteById(state.getId())).withRel("Delete by id"));
+        state.add(linkTo(methodOn(StateController.class).update(state.getId(), state)).withRel("Update by id"));
+        return ResponseEntity.created(linkTo(methodOn(StateController.class).findById(state.getId())).toUri()).body(state);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<StateDTO> update(@PathVariable Long id, @RequestBody StateDTO stateDTO) {
+        StateDTO state = this.stateService.update(id, stateDTO);
+        state.add(linkTo(methodOn(StateController.class).findById(state.getId())).withRel("Find by id"));
+        state.add(linkTo(methodOn(StateController.class).findAll()).withRel("List of states"));
+        state.add(linkTo(methodOn(StateController.class).deleteById(state.getId())).withRel("Delete by id"));
+        state.add(linkTo(methodOn(StateController.class).insert(state)).withRel("Insert"));
+        return ResponseEntity.ok(state);
     }
 
 }

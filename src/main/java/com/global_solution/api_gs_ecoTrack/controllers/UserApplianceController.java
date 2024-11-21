@@ -13,6 +13,9 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 @RestController
 @RequestMapping("/userAppliance")
 public class UserApplianceController {
@@ -30,12 +33,30 @@ public class UserApplianceController {
         UserApplianceDTO appliance = this.userApplianceService.insert(applianceDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(appliance.getId()).toUri();
+        appliance.add(linkTo(methodOn(UserApplianceController.class).findById(appliance.getId())).withSelfRel())
+                .add(linkTo(methodOn(UserApplianceController.class).delete(appliance.getId())).withRel("delete"))
+                .add(linkTo(methodOn(UserApplianceController.class).getUserAppliancesReport()).withRel("report"))
+                .add(linkTo(methodOn(UserApplianceController.class).getMonthYearReport()).withRel("reportMonthYear"))
+                .add(linkTo(methodOn(UserApplianceController.class).findAll()).withRel("findAll"));
         return ResponseEntity.created(uri).body(appliance);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<UserApplianceDTO> findById(@PathVariable Long id) {
-        return ResponseEntity.ok(userApplianceService.findById(id));
+        UserApplianceDTO userApplianceDTO = userApplianceService.findById(id);
+        return ResponseEntity.ok(userApplianceDTO
+                .add(linkTo(methodOn(UserApplianceController.class).findAll()).withRel("findAll"))
+                .add(linkTo(methodOn(UserApplianceController.class).delete(id)).withRel("delete"))
+                .add(linkTo(methodOn(UserApplianceController.class).getUserAppliancesReport()).withRel("report"))
+                .add(linkTo(methodOn(UserApplianceController.class).getMonthYearReport()).withRel("reportMonthYear"))
+                .add(linkTo(methodOn(UserApplianceController.class).insert(userApplianceDTO)).withRel("insert")));
+
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        userApplianceService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/report")
