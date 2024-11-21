@@ -35,10 +35,16 @@ public class UserAppliance {
 
     private Integer daysUsedPerWeek;
 
+    private Double totalComsumption;
+
+    private Double totalCost;
+
     public UserAppliance(UserApplianceDTO userApplianceDTO) {
         this.id = userApplianceDTO.getId();
         this.associationDate = userApplianceDTO.getAssociationDate();
         this.hoursUsedPerDay = userApplianceDTO.getHoursUsedPerDay();
         this.daysUsedPerWeek = userApplianceDTO.getDaysUsedPerWeek();
+        this.totalComsumption = userApplianceDTO.getTotalComsumption();
+        this.totalCost = userApplianceDTO.getTotalCost();
     }
 }

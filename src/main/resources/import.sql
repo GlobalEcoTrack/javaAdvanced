@@ -26,11 +26,11 @@ INSERT INTO eco_track_tb_state (name, abbreviation, price_kwh) VALUES ('São Pau
 INSERT INTO eco_track_tb_state (name, abbreviation, price_kwh) VALUES ('Sergipe', 'SE', 0.90);
 INSERT INTO eco_track_tb_state (name, abbreviation, price_kwh) VALUES ('Tocantins', 'TO', 0.89);
 
-INSERT INTO eco_track_tb_appliance (name, kw_per_hour) VALUES ('Geladeira', 0.15);
-INSERT INTO eco_track_tb_appliance (name, kw_per_hour) VALUES ('Lampada', 0.20);
-INSERT INTO eco_track_tb_appliance (name, kw_per_hour) VALUES ('Televisão', 0.10);
-INSERT INTO eco_track_tb_appliance (name, kw_per_hour) VALUES ('Chuveiro elétrico', 4.50);
-INSERT INTO eco_track_tb_appliance (name, kw_per_hour) VALUES ('Micro-ondas', 0.12);
-INSERT INTO eco_track_tb_appliance (name, kw_per_hour) VALUES ('Fogão', 1.00);
+INSERT INTO eco_track_tb_appliance (name, kw) VALUES ('Geladeira', 0.4);
+INSERT INTO eco_track_tb_appliance (name, kw) VALUES ('Lampada', 0.01);
+INSERT INTO eco_track_tb_appliance (name, kw) VALUES ('Televisão', 0.1);
+INSERT INTO eco_track_tb_appliance (name, kw) VALUES ('Chuveiro elétrico', 6.50);
+INSERT INTO eco_track_tb_appliance (name, kw) VALUES ('Micro-ondas', 1.25);
+INSERT INTO eco_track_tb_appliance (name, kw) VALUES ('Maquina de lavar', 1.00);
 
 

@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -22,7 +21,7 @@ public class Appliance {
     private Long id;
     @Column(unique = true)
     private String name;
-    private Double kwPerHour;
+    private Double kw;
 
     @OneToMany(mappedBy = "appliance", cascade = CascadeType.ALL)
     private List<UserAppliance> userAppliances;
@@ -30,6 +29,6 @@ public class Appliance {
     public Appliance(ApplianceDTO applianceDTO) {
         this.id = applianceDTO.getId();
         this.name = applianceDTO.getName();
-        this.kwPerHour = applianceDTO.getKwPerHour();
+        this.kw = applianceDTO.getKw();
     }
 }

@@ -27,6 +27,8 @@ public class UserApplianceDTO {
     private Double hoursUsedPerDay;
     @NotNull(message = "Dias de uso por semana é obrigatório")
     private Integer daysUsedPerWeek;
+    private Double totalComsumption;
+    private Double totalCost;
 
     public UserApplianceDTO(UserAppliance userAppliance) {
         this.id = userAppliance.getId();
@@ -35,5 +37,7 @@ public class UserApplianceDTO {
         this.associationDate = userAppliance.getAssociationDate();
         this.hoursUsedPerDay = userAppliance.getHoursUsedPerDay();
         this.daysUsedPerWeek = userAppliance.getDaysUsedPerWeek();
+        this.totalComsumption = userAppliance.getTotalComsumption();
+        this.totalCost = userAppliance.getTotalCost();
     }
 }
