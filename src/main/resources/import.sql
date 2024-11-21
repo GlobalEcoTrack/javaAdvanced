@@ -27,19 +27,10 @@ INSERT INTO eco_track_tb_state (name, abbreviation, price_kwh) VALUES ('Sergipe'
 INSERT INTO eco_track_tb_state (name, abbreviation, price_kwh) VALUES ('Tocantins', 'TO', 0.89);
 
 INSERT INTO eco_track_tb_appliance (name, kw_per_hour) VALUES ('Geladeira', 0.15);
-INSERT INTO eco_track_tb_appliance (name, kw_per_hour) VALUES ('Freezer', 0.20);
-INSERT INTO eco_track_tb_appliance (name, kw_per_hour) VALUES ('Ar-condicionado', 1.00);
+INSERT INTO eco_track_tb_appliance (name, kw_per_hour) VALUES ('Lampada', 0.20);
 INSERT INTO eco_track_tb_appliance (name, kw_per_hour) VALUES ('Televisão', 0.10);
-INSERT INTO eco_track_tb_appliance (name, kw_per_hour) VALUES ('Máquina de lavar roupa', 0.50);
-INSERT INTO eco_track_tb_appliance (name, kw_per_hour) VALUES ('Máquina de secar roupa', 0.80);
 INSERT INTO eco_track_tb_appliance (name, kw_per_hour) VALUES ('Chuveiro elétrico', 4.50);
 INSERT INTO eco_track_tb_appliance (name, kw_per_hour) VALUES ('Micro-ondas', 0.12);
-INSERT INTO eco_track_tb_appliance (name, kw_per_hour) VALUES ('Forno elétrico', 1.00);
-INSERT INTO eco_track_tb_appliance (name, kw_per_hour) VALUES ('Lava-louças', 1.00);
-INSERT INTO eco_track_tb_appliance (name, kw_per_hour) VALUES ('Computador desktop', 0.25);
-INSERT INTO eco_track_tb_appliance (name, kw_per_hour) VALUES ('Notebook', 0.05);
-INSERT INTO eco_track_tb_appliance (name, kw_per_hour) VALUES ('Ventilador', 0.10);
-INSERT INTO eco_track_tb_appliance (name, kw_per_hour) VALUES ('Aspirador de pó', 0.15);
-INSERT INTO eco_track_tb_appliance (name, kw_per_hour) VALUES ('Ferro de passar roupa', 1.00);
+INSERT INTO eco_track_tb_appliance (name, kw_per_hour) VALUES ('Fogão', 1.00);
 
 
