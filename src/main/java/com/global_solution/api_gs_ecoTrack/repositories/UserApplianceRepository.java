@@ -11,6 +11,8 @@ import java.util.List;
 public interface UserApplianceRepository extends JpaRepository<UserAppliance, Long> {
     List<UserAppliance> findByUserId(Long userId);
 
+    List<UserAppliance> findAllByUserIdAndApplianceId(Long userId, Long applianceId);
+
     @Query(nativeQuery = true, value = """
                     SELECT
                         APPLIANCE_ID,

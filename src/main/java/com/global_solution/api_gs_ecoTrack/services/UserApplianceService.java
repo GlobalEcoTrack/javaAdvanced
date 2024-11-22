@@ -50,6 +50,11 @@ public class UserApplianceService {
     }
 
     @Transactional(readOnly = true)
+    public List<UserApplianceDTO> findAllByUserIdAndApplianceId(Long applianceId) {
+        return userApplianceRepository.findAllByUserIdAndApplianceId(this.userService.getUserContext().getId(), applianceId).stream().map(UserApplianceDTO::new).toList();
+    }
+
+    @Transactional(readOnly = true)
     public UserApplianceDTO findById(Long id) {
         UserAppliance userAppliance = userApplianceRepository.findById(id).orElseThrow(() -> new NoSuchElementException("UserAppliance not found"));
         return new UserApplianceDTO(userAppliance);

@@ -41,6 +41,11 @@ public class UserApplianceController {
         return ResponseEntity.created(uri).body(appliance);
     }
 
+    @GetMapping("/user/appliance/{applianceId}")
+    public ResponseEntity<List<UserApplianceDTO>> findAllByUserIdAndApplianceId(@PathVariable Long applianceId) {
+        return ResponseEntity.ok(userApplianceService.findAllByUserIdAndApplianceId(applianceId));
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<UserApplianceDTO> findById(@PathVariable Long id) {
         UserApplianceDTO userApplianceDTO = userApplianceService.findById(id);
