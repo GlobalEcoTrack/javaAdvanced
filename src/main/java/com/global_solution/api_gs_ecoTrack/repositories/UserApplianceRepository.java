@@ -12,20 +12,20 @@ public interface UserApplianceRepository extends JpaRepository<UserAppliance, Lo
     List<UserAppliance> findByUserId(Long userId);
 
     @Query(nativeQuery = true, value = """
-            SELECT
-                APPLIANCE_ID,
-                COUNT(*) AS QUANTITY,
-                ROUND(SUM(TOTAL_CONSUMPTION), 2) AS TOTAL_CONSUMPTION,
-                ROUND(SUM(TOTAL_COST), 2) AS TOTAL_COST
-            FROM
-                ECO_TRACK_TB_USER_APPLIANCE
-            WHERE
-                USER_ID = :userId
-            GROUP BY
-                APPLIANCE_ID
-            ORDER BY
-                APPLIANCE_ID
-    """)
+                    SELECT
+                        APPLIANCE_ID,
+                        COUNT(*) AS QUANTITY,
+                        ROUND(SUM(TOTAL_CONSUMPTION), 2) AS TOTAL_CONSUMPTION,
+                        ROUND(SUM(TOTAL_COST), 2) AS TOTAL_COST
+                    FROM
+                        ECO_TRACK_TB_USER_APPLIANCE
+                    WHERE
+                        USER_ID = :userId
+                    GROUP BY
+                        APPLIANCE_ID
+                    ORDER BY
+                        APPLIANCE_ID
+            """)
     List<UserApplianceReportProjection> getAppliancesReport(Long userId);
 
     @Query(nativeQuery = true, value = """

@@ -25,6 +25,13 @@ public class StateService {
         return new StateDTO(state);
     }
 
+    @Transactional
+    public StateDTO insertWithProcedure(StateDTO stateDTO) {
+        State state = new State(stateDTO);
+        state = stateRepository.eco_track_insert_state(state.getName(), state.getAbbreviation(), state.getPrice_kwh());
+        return new StateDTO(state);
+    }
+
     @Transactional(readOnly = true)
     public StateDTO findByAbbreviation(String abbreviation) {
         State state = stateRepository.findByAbbreviation(abbreviation).orElseThrow(() -> new NoSuchElementException("Estado não encontrado"));

@@ -76,6 +76,16 @@ public class StateController {
         return ResponseEntity.created(linkTo(methodOn(StateController.class).findById(state.getId())).toUri()).body(state);
     }
 
+    @PostMapping("/withProcedure")
+    public ResponseEntity<StateDTO> insertWithProcedure(@RequestBody StateDTO stateDTO) {
+        StateDTO state = this.stateService.insert(stateDTO);
+        state.add(linkTo(methodOn(StateController.class).findById(state.getId())).withRel("Find by id"));
+        state.add(linkTo(methodOn(StateController.class).findAll()).withRel("List of states"));
+        state.add(linkTo(methodOn(StateController.class).deleteById(state.getId())).withRel("Delete by id"));
+        state.add(linkTo(methodOn(StateController.class).update(state.getId(), state)).withRel("Update by id"));
+        return ResponseEntity.created(linkTo(methodOn(StateController.class).findById(state.getId())).toUri()).body(state);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<StateDTO> update(@PathVariable Long id, @RequestBody StateDTO stateDTO) {
         StateDTO state = this.stateService.update(id, stateDTO);
