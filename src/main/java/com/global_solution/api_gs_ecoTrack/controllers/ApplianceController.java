@@ -37,9 +37,9 @@ public class ApplianceController {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
                 .buildAndExpand(appliance.getId()).toUri();
         appliance.add(linkTo(methodOn(ApplianceController.class).findById(appliance.getId())).withRel("Find by id"))
-            .add(linkTo(methodOn(ApplianceController.class).findAll()).withRel("List of appliances"))
-            .add(linkTo(methodOn(ApplianceController.class).delete(appliance.getId())).withRel("Delete appliance"))
-            .add(linkTo(methodOn(ApplianceController.class).update(appliance.getId(), new ApplianceDTO())).withRel("Update appliance"));
+                .add(linkTo(methodOn(ApplianceController.class).findAll()).withRel("List of appliances"))
+                .add(linkTo(methodOn(ApplianceController.class).delete(appliance.getId())).withRel("Delete appliance"))
+                .add(linkTo(methodOn(ApplianceController.class).update(appliance.getId(), new ApplianceDTO())).withRel("Update appliance"));
 
         return ResponseEntity.created(uri).body(appliance);
     }

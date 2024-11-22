@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ReportDTO  extends RepresentationModel<ApplianceDTO> {
+public class ReportDTO extends RepresentationModel<ApplianceDTO> {
     private Double totalConsumption = 0.0;
     private Double totalCost = 0.0;
     private List<UserApplianceReportProjection> reportUserApplianceList;

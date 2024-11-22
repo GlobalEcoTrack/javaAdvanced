@@ -60,7 +60,7 @@ public class UserApplianceService {
         ReportDTO reportDTO = new ReportDTO();
         reportDTO.setReportUserApplianceList(userApplianceRepository.getAppliancesReport(userService.getUserContext().getId()));
         reportDTO.getReportUserApplianceList().forEach(userAppliance -> {
-            reportDTO.setTotalConsumption(reportDTO.getTotalConsumption()  + userAppliance.getTotalConsumption());
+            reportDTO.setTotalConsumption(reportDTO.getTotalConsumption() + userAppliance.getTotalConsumption());
             reportDTO.setTotalCost(reportDTO.getTotalCost() + userAppliance.getTotalCost());
         });
         return reportDTO;
