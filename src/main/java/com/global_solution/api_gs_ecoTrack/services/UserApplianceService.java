@@ -44,6 +44,32 @@ public class UserApplianceService {
         return new UserApplianceDTO(userAppliance);
     }
 
+    @Transactional
+    public UserApplianceDTO insertWithProcedure(UserApplianceDTO userApplianceDTO) {
+        UserAppliance userAppliance = new UserAppliance(userApplianceDTO);
+        userAppliance.setAppliance(new Appliance(applianceService.findById(userApplianceDTO.getAppliance_id())));
+
+        userAppliance.setUser(userService.getUserContext());
+
+        userAppliance.setAssociationDate(LocalDateTime.now());
+
+        Double totalConsumption = (userAppliance.getMinutesUsedPerDay() / 60) * (userAppliance.getDaysUsedPerWeek() * 4) * userAppliance.getAppliance().getKw();
+        Double totalCost = totalConsumption * userAppliance.getUser().getState().getPrice_kwh();
+
+        userAppliance.setTotalConsumption(totalConsumption);
+        userAppliance.setTotalCost(totalCost);
+        userAppliance = userApplianceRepository.eco_track_insert_user_appliance(
+                userAppliance.getAssociationDate(),
+                userAppliance.getMinutesUsedPerDay(),
+                userAppliance.getDaysUsedPerWeek(),
+                userAppliance.getTotalConsumption(),
+                userAppliance.getTotalCost(),
+                userAppliance.getUser().getId(),
+                userAppliance.getAppliance().getId()
+        );
+        return new UserApplianceDTO(userAppliance);
+    }
+
     @Transactional(readOnly = true)
     public List<UserApplianceDTO> findAll() {
         return userApplianceRepository.findAll().stream().map(UserApplianceDTO::new).toList();

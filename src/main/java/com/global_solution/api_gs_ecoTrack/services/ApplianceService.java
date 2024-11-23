@@ -22,6 +22,13 @@ public class ApplianceService {
         return new ApplianceDTO(appliance);
     }
 
+    @Transactional
+    public ApplianceDTO insertWithProcedure(ApplianceDTO applianceDTO) {
+        Appliance appliance = new Appliance(applianceDTO);
+        appliance = applianceRepository.eco_track_insert_appliance(appliance.getName(), appliance.getKw());
+        return new ApplianceDTO(appliance);
+    }
+
     @Transactional(readOnly = true)
     public List<ApplianceDTO> findAll() {
         return applianceRepository.findAll().stream().map(ApplianceDTO::new).toList();

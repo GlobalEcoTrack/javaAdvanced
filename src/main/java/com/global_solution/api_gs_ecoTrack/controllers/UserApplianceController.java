@@ -41,6 +41,19 @@ public class UserApplianceController {
         return ResponseEntity.created(uri).body(appliance);
     }
 
+    @PostMapping("/withProcedure")
+    public ResponseEntity<UserApplianceDTO> insertWithProcedure(@RequestBody @Valid UserApplianceDTO applianceDTO) {
+        UserApplianceDTO appliance = this.userApplianceService.insert(applianceDTO);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(appliance.getId()).toUri();
+        appliance.add(linkTo(methodOn(UserApplianceController.class).findById(appliance.getId())).withSelfRel())
+                .add(linkTo(methodOn(UserApplianceController.class).delete(appliance.getId())).withRel("delete"))
+                .add(linkTo(methodOn(UserApplianceController.class).getUserAppliancesReport()).withRel("report"))
+                .add(linkTo(methodOn(UserApplianceController.class).getMonthYearReport()).withRel("reportMonthYear"))
+                .add(linkTo(methodOn(UserApplianceController.class).findAll()).withRel("findAll"));
+        return ResponseEntity.created(uri).body(appliance);
+    }
+
     @GetMapping("/user/appliance/{applianceId}")
     public ResponseEntity<List<UserApplianceDTO>> findAllByUserIdAndApplianceId(@PathVariable Long applianceId) {
         return ResponseEntity.ok(userApplianceService.findAllByUserIdAndApplianceId(applianceId));

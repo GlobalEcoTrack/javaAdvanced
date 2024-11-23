@@ -22,6 +22,20 @@ public class UserService {
         return new UserDTO(user);
     }
 
+    @Transactional
+    public UserDTO insertWithProcedure(UserDTO userDTO) {
+        User user = new User(userDTO);
+        user = userRepository.eco_track_insert_user(
+                user.getName(),
+                user.getBirthDate(),
+                user.getEmail(),
+                user.getPassword(),
+                user.getRole().name(),
+                user.getState().getId()
+        );
+        return new UserDTO(user);
+    }
+
     @Transactional(readOnly = true)
     public UserDTO findById(Long id) {
         return new UserDTO(userRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("Conta não encontrada !!")));

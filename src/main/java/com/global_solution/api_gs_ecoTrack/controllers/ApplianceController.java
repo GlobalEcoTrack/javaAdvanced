@@ -44,6 +44,18 @@ public class ApplianceController {
         return ResponseEntity.created(uri).body(appliance);
     }
 
+    @PostMapping("/withProcedure")
+    public ResponseEntity<ApplianceDTO> insertWithProcedure(@RequestBody @Valid ApplianceDTO applianceDTO) {
+        ApplianceDTO appliance = this.applianceService.insert(applianceDTO);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
+                .buildAndExpand(appliance.getId()).toUri();
+        appliance.add(linkTo(methodOn(ApplianceController.class).findById(appliance.getId())).withRel("Find by id"))
+                .add(linkTo(methodOn(ApplianceController.class).findAll()).withRel("List of appliances"))
+                .add(linkTo(methodOn(ApplianceController.class).delete(appliance.getId())).withRel("Delete appliance"))
+                .add(linkTo(methodOn(ApplianceController.class).update(appliance.getId(), new ApplianceDTO())).withRel("Update appliance"));
+        return ResponseEntity.created(uri).body(appliance);
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<ApplianceDTO> findById(@PathVariable Long id) {
         return ResponseEntity.ok(applianceService.findById(id)
