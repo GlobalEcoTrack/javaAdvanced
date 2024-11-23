@@ -1,6 +1,5 @@
 package com.global_solution.api_gs_ecoTrack.repositories;
 
-import com.global_solution.api_gs_ecoTrack.domain.State;
 import com.global_solution.api_gs_ecoTrack.domain.UserAppliance;
 import com.global_solution.api_gs_ecoTrack.domain.projections.UserApplianceReportProjection;
 import com.global_solution.api_gs_ecoTrack.domain.projections.UserAppliancesByMonthYearReportProjection;
@@ -9,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
 import org.springframework.data.repository.query.Param;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
